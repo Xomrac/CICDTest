@@ -35,19 +35,15 @@ jobs:
         with:
           targetPlatform: StandaloneWindows64
           
-    #Step 4: Install gdrive tool
-      - name: Install gdrive
-        run: |
-          Invoke-WebRequest -Uri https://github.com/gdrive-org/gdrive/releases/download/2.1.0/gdrive-windows-x64.exe -OutFile gdrive.exe
-          Move-Item .\gdrive.exe "C:\Program Files\gdrive.exe"
-
-      # Step 5: Authenticate gdrive with Service Account
-      - name: Authenticate with Google Drive
-        run:
-          echo "${{ secrets.GOOGLEAUT}}" > service_account.json
-          gdrive about -s service_account.json
-
-      # Step 6: Upload build artifact to Google Drive
-      - name: Upload to Google Drive
-        run: 
-          gdrive upload --service-account service_account.json --parent <your-google-drive-folder-id> build/
+      - name: g-drive-upload
+  # You may pin to the exact commit or the version.
+  # uses: logickoder/google-drive-upload@85187aba3b917357f61166c1ed2b50c6f261fd94
+        uses: logickoder/google-drive-upload@1.0.0
+        with:
+    # the service account credentials
+            credentials: ${{secrets.GOOGLEAUT}}
+    # the name of the file you want to upload. Wildcards can be used to upload more than one file
+            filename: Test
+    # the Id of the parent folder you want to upload the file in
+            folderId: 1bzqSl0J_EGg2PuOj2FRobfU0h4Xc93f1
+          
