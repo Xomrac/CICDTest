@@ -32,6 +32,12 @@ jobs:
         with:
           version: 2022.3.25f1
 
+
+      - name: Unity - Activate
+        uses: game-ci/unity-activate@v2.0.0
+        with:
+          unityVersion: 2022.3.25f1
+
       #step 3: build
       # Build
       - name: Build project
