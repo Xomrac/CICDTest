@@ -34,6 +34,14 @@ jobs:
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
           targetPlatform: StandaloneWindows64
+
+
+      - name: Zip Build
+        uses: vimtor/action-zip@v1
+        if: github.event.action == 'published' && matrix.targetPlatform != 'WSAPlayer'
+        with:
+          files: build/Windows/*
+          dest: build/cgs-${{ Windows }}.zip
           
       - name: g-drive-upload
   # You may pin to the exact commit or the version.
@@ -43,7 +51,7 @@ jobs:
     # the service account credentials
             credentials: ${{secrets.GOOGLEAUT}}
     # the name of the file you want to upload. Wildcards can be used to upload more than one file
-            filename: Test
+            filename: build/Windows.zip
     # the Id of the parent folder you want to upload the file in
             folderId: 1bzqSl0J_EGg2PuOj2FRobfU0h4Xc93f1
           
