@@ -37,12 +37,9 @@ jobs:
           
     #Step 4: Install gdrive tool
       - name: Install gdrive
-        run:
-          sudo apt-get update
-          sudo apt-get install -y unzip
-          curl -L -o gdrive.tar.gz https://github.com/gdrive-org/gdrive/releases/download/2.1.0/gdrive-linux-x64
-          chmod +x gdrive-linux-x64
-          sudo mv gdrive-linux-x64 /usr/local/bin/gdrive
+        run: |
+          Invoke-WebRequest -Uri https://github.com/gdrive-org/gdrive/releases/download/2.1.0/gdrive-windows-x64.exe -OutFile gdrive.exe
+          Move-Item .\gdrive.exe "C:\Program Files\gdrive.exe"
 
       # Step 5: Authenticate gdrive with Service Account
       - name: Authenticate with Google Drive
