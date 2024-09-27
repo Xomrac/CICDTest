@@ -36,21 +36,21 @@ jobs:
           targetPlatform: StandaloneWindows64
           
       # Step 4: Install gdrive tool
-      - name: Install gdrive
-        run:
-          sudo apt-get update
-          sudo apt-get install -y unzip
-          curl -L -o gdrive.tar.gz https://github.com/gdrive-org/gdrive/releases/download/2.1.0/gdrive-linux-x64
-          chmod +x gdrive-linux-x64
-          sudo mv gdrive-linux-x64 /usr/local/bin/gdrive
+      #- name: Install gdrive
+       # run:
+      #    sudo apt-get update
+       #   sudo apt-get install -y unzip
+      #    curl -L -o gdrive.tar.gz https://github.com/gdrive-org/gdrive/releases/download/2.1.0/gdrive-linux-x64
+       #   chmod +x gdrive-linux-x64
+        #  sudo mv gdrive-linux-x64 /usr/local/bin/gdrive
 
       # Step 5: Authenticate gdrive with Service Account
-      - name: Authenticate with Google Drive
-        run:
-          echo "${{ secrets.GOOGLEAUT}}" > service_account.json
-          gdrive about -s service_account.json
+     # - name: Authenticate with Google Drive
+     #   run:
+     #     echo "${{ secrets.GOOGLEAUT}}" > service_account.json
+     #     gdrive about -s service_account.json
 
       # Step 6: Upload build artifact to Google Drive
-      - name: Upload to Google Drive
-        run: 
-          gdrive upload --service-account service_account.json --parent <your-google-drive-folder-id> build/
+     # - name: Upload to Google Drive
+       # run: 
+         # gdrive upload --service-account service_account.json --parent <your-google-drive-folder-id> build/
