@@ -18,35 +18,39 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      #step 2: setup unity
-      - name: Setup Unity
-        uses: game-ci/unity-builder@v2
+        # Cache
+      - uses: actions/cache@v3
         with:
-          version: 2022.3.25f1
+          path: Library
+          key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+          restore-keys: |
+            Library-
 
-      #step 3: build
-      - name: build Unity
-        uses: game-ci/unity-builder@v2
+      - name: Build project
+        uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
           targetPlatform: StandaloneWindows64
-          license: ${{ secrets.UNITY_LICENSE}}
           
       # Step 4: Install gdrive tool
-      - name: Install gdrive
-        run:
-          sudo apt-get update
-          sudo apt-get install -y unzip
-          curl -L -o gdrive.tar.gz https://github.com/gdrive-org/gdrive/releases/download/2.1.0/gdrive-linux-x64
-          chmod +x gdrive-linux-x64
-          sudo mv gdrive-linux-x64 /usr/local/bin/gdrive
+      #- name: Install gdrive
+       # run:
+      #    sudo apt-get update
+       #   sudo apt-get install -y unzip
+      #    curl -L -o gdrive.tar.gz https://github.com/gdrive-org/gdrive/releases/download/2.1.0/gdrive-linux-x64
+       #   chmod +x gdrive-linux-x64
+        #  sudo mv gdrive-linux-x64 /usr/local/bin/gdrive
 
       # Step 5: Authenticate gdrive with Service Account
-      - name: Authenticate with Google Drive
-        run:
-          echo "${{ secrets.GOOGLEAUT}}" > service_account.json
-          gdrive about -s service_account.json
+     # - name: Authenticate with Google Drive
+     #   run:
+     #     echo "${{ secrets.GOOGLEAUT}}" > service_account.json
+     #     gdrive about -s service_account.json
 
       # Step 6: Upload build artifact to Google Drive
-      - name: Upload to Google Drive
-        run: 
-          gdrive upload --service-account service_account.json --parent <your-google-drive-folder-id> build/
+     # - name: Upload to Google Drive
+       # run: 
+         # gdrive upload --service-account service_account.json --parent <your-google-drive-folder-id> build/
