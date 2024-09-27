@@ -29,7 +29,7 @@ jobs:
         uses: game-ci/unity-builder@v2
         with:
           targetPlatform: StandaloneWindows64
-          license: ${{ secrets.UNITYAUT}}
+          license: ${{ secrets.UNITY_LICENSE}}
           
       # Step 4: Install gdrive tool
       - name: Install gdrive
