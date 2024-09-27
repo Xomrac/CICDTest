@@ -38,10 +38,9 @@ jobs:
 
       - name: Zip Build
         uses: vimtor/action-zip@v1
-        if: github.event.action == 'published' && matrix.targetPlatform != 'WSAPlayer'
         with:
           files: build/Windows/*
-          dest: build/cgs-${{ StandaloneWindows64 }}.zip
+          dest: build/Windows.zip
           
       - name: g-drive-upload
   # You may pin to the exact commit or the version.
