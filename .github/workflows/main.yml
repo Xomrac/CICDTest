@@ -35,6 +35,11 @@ jobs:
         with:
           targetPlatform: StandaloneWindows64
 
+      - uses: actions/upload-artifact@v3
+        with:
+          name: BuildWindows
+          path: build/Windows
+
 
       - name: Zip Build
         uses: vimtor/action-zip@v1
