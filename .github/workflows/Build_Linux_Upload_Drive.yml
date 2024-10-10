@@ -1,0 +1,52 @@
+name: Linux Unity Build
+
+on:
+  push:
+    branches:
+    - builds-linux
+
+jobs:
+
+  build:
+    name: Build Linux Unity Game
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Cache Library
+        uses: actions/cache@v3
+        with:
+          path: Library
+          key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+          restore-keys: Library-
+
+      - name: Build project
+        uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          targetPlatform: StandaloneLinux64
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: Build-Linux
+          path: build/Linux
+
+
+      - name: Zip Build
+        uses: vimtor/action-zip@v1
+        with:
+          files: build/Linux
+          dest: build/Linux.zip
+          
+      - name: g-drive-upload
+        uses: logickoder/google-drive-upload@1.0.0
+        with:
+            credentials: ${{secrets.GOOGLEAUT}}
+            filename: build/Linux.zip
+            folderId: 1bzqSl0J_EGg2PuOj2FRobfU0h4Xc93f1
