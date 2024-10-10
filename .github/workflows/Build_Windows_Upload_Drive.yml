@@ -31,7 +31,6 @@ jobs:
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
           targetPlatform: StandaloneWindows64
-          dest: build/Windows
 
       - name: Check Build Directory Contents
         run: ls -R build
@@ -39,13 +38,13 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: Build-windows
-          path: build/Windows
+          name: Build
+          path: build
 
       - name: Zip Build
         uses: vimtor/action-zip@v1
         with:
-          files: build/*
+          files: build
           dest: build/Windows.zip
           
       - name: g-drive-upload
