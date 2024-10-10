@@ -38,13 +38,13 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: Build
-          path: build
+          name: Build-Windows
+          path: build/StandaloneWindows64
 
       - name: Zip Build
         uses: vimtor/action-zip@v1
         with:
-          files: build
+          files: build/StandaloneWindows64
           dest: build/Windows.zip
           
       - name: g-drive-upload
