@@ -45,7 +45,7 @@ jobs:
       - name: Zip Build
         uses: vimtor/action-zip@v1
         with:
-          files: build/Windows
+          files: build
           dest: build/Windows.zip
           
       - name: g-drive-upload
