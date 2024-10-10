@@ -30,6 +30,10 @@ jobs:
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
           targetPlatform: iOS
+          dest: build/IOS
+
+      - name: Check Build Directory Contents
+        run: ls -R build
 
       # XCode project folder
       - name: Upload Artifact
