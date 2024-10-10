@@ -1,0 +1,59 @@
+name: Unity Andorid Build
+
+#Run this when a branch gets pushed
+on:
+  push:
+    branches:
+    - builds-and
+
+jobs:
+  build:
+    name: Build Android Unity Game
+
+    #the build OS
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      #step 1: checkout
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      
+      
+        # Cache
+      - name : Cache Library
+        uses: actions/cache@v3
+        with:
+          path: Library
+          key: Library-Android
+          restore-keys: Library-
+
+      - name: Build project
+        uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          targetPlatform: Android
+
+
+      - name : Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: Build-Android
+          path: build/Android
+          
+      - name: Upload to Drive
+        uses: logickoder/google-drive-upload@1.0.0
+        with:
+    # the service account credentials
+            credentials: ${{secrets.GOOGLEAUT}}
+    # the name of the file you want to upload. Wildcards can be used to upload more than one file
+            filename: build/Android/Build-Android.apk
+    # the Id of the parent folder you want to upload the file in
+            folderId: 1bzqSl0J_EGg2PuOj2FRobfU0h4Xc93f1
+          
