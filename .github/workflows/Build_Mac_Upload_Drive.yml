@@ -41,7 +41,7 @@ jobs:
       - name: Zip Build
         uses: vimtor/action-zip@v1
         with:
-          files: build-MacOs
+          files: build/MacOs
           dest: build/MacOs.zip
           
       - name: g-drive-upload
