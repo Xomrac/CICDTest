@@ -9,7 +9,7 @@ jobs:
 
   build:
     name: Build Windows Unity Game
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
 
@@ -45,7 +45,7 @@ jobs:
         uses: vimtor/action-zip@v1
         with:
           files: build
-          dest: Windows.zip
+          dest: build/Windows.zip
           
       - name: g-drive-upload
         uses: logickoder/google-drive-upload@1.0.0
