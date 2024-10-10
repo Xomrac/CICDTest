@@ -45,11 +45,11 @@ jobs:
         uses: vimtor/action-zip@v1
         with:
           files: build
-          dest: build/Windows.zip
+          dest: Windows.zip
           
       - name: g-drive-upload
         uses: logickoder/google-drive-upload@1.0.0
         with:
             credentials: ${{secrets.GOOGLEAUT}}
-            filename: build/Windows.zip
+            filename: Windows.zip
             folderId: 1bzqSl0J_EGg2PuOj2FRobfU0h4Xc93f1
