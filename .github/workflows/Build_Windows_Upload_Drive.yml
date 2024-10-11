@@ -51,5 +51,5 @@ jobs:
         uses: logickoder/google-drive-upload@1.0.0
         with:
             credentials: ${{secrets.GOOGLEAUT}}
-            filename: Windows.zip
+            filename: build/Windows.zip
             folderId: 1bzqSl0J_EGg2PuOj2FRobfU0h4Xc93f1
