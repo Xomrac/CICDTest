@@ -30,7 +30,6 @@ jobs:
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
           targetPlatform: iOS
-          dest: build/IOS
 
       - name: Check Build Directory Contents
         run: ls -R build
@@ -40,18 +39,17 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: Build-IOS
-          path: build/IOS
-
+          path: build/iOS
 
       - name: Zip Build
         uses: vimtor/action-zip@v1
         with:
-          files: build/IOS
-          dest: build/IOS.zip
+          files: build/iOS
+          dest: build/iOS.zip
           
       - name: g-drive-upload
         uses: logickoder/google-drive-upload@1.0.0
         with:
             credentials: ${{secrets.GOOGLEAUT}}
-            filename: build/IOS.zip
+            filename: build/iOS.zip
             folderId: 1bzqSl0J_EGg2PuOj2FRobfU0h4Xc93f1
