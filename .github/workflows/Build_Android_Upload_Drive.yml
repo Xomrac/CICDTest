@@ -1,4 +1,4 @@
-name: Unity Andorid Build
+name: Android Unity Build
 
 on:
   push:
@@ -13,14 +13,12 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
       
       - name : Cache Library
         uses: actions/cache@v3
         with:
           path: Library
-          key: Library-Android
+          key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
           restore-keys: Library-
 
       - name: Build project
@@ -32,6 +30,8 @@ jobs:
         with:
           targetPlatform: Android
 
+      - name: Check Build Directory Contents
+        run: ls -R build
 
       - name : Upload Artifact
         uses: actions/upload-artifact@v3
