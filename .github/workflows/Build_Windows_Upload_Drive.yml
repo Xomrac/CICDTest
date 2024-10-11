@@ -9,7 +9,7 @@ jobs:
 
   build:
     name: Build Windows Unity Game
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
 
@@ -31,7 +31,6 @@ jobs:
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
           targetPlatform: StandaloneWindows64
-          dest: build/Windows
 
       - name: Check Build Directory Contents
         run: ls -R build
@@ -39,18 +38,18 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: Build-windows
-          path: build/Windows
+          name: Build-Windows
+          path: build/StandaloneWindows64
 
       - name: Zip Build
         uses: vimtor/action-zip@v1
         with:
-          files: build/Windows
+          files: build/StandaloneWindows64
           dest: build/Windows.zip
           
       - name: g-drive-upload
         uses: logickoder/google-drive-upload@1.0.0
         with:
             credentials: ${{secrets.GOOGLEAUT}}
-            filename: build/Windows.zip
+            filename: Windows.zip
             folderId: 1bzqSl0J_EGg2PuOj2FRobfU0h4Xc93f1
