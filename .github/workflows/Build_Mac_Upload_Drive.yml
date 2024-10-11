@@ -9,7 +9,7 @@ jobs:
 
   build:
     name: Build MacOs Unity Game
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Repository
@@ -30,7 +30,6 @@ jobs:
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
           targetPlatform: StandaloneOSX
-          dest: build/MacOs
 
       - name: Check Build Directory Contents
         run: ls -R build
@@ -39,13 +38,13 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: Build-MacOs
-          path: build/MacOs
+          path: build/StandaloneOSX
 
 
       - name: Zip Build
         uses: vimtor/action-zip@v1
         with:
-          files: build/MacOs
+          files: build/StandaloneOSX
           dest: build/MacOs.zip
           
       - name: g-drive-upload

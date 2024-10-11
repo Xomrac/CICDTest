@@ -40,9 +40,6 @@ jobs:
           name: Build-Linux
           path: build/StandaloneLinux64
 
-      - name: Set Correct Permissions
-        run: chmod -R 755 build/StandaloneLinux64
-
       - name: Zip Build
         run: zip -r build/Linux.zip build/StandaloneLinux64
           
